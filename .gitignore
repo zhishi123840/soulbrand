@@ -1,0 +1,27 @@
+﻿# Gradle / build output
+.gradle/
+build/
+out/
+run/
+run-data/
+$env/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Workshop / tooling state
+.mcstudio/
+.forge-backup/
+.model-backup/
+.texture-backup/
+
+# Dev scratch, not part of the mod: prompt draft, one-off asset scripts
+IDEA.md
+tools/
+
+# Ad-hoc build logs and scratch dumps at project root
+/*.txt
+**/*.class
+

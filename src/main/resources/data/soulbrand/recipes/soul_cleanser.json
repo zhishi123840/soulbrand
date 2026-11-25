@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "soulbrand:soul_fragment" },
+    { "item": "soulbrand:soul_fragment" },
+    { "item": "soulbrand:soul_fragment" }
+  ],
+  "result": {
+    "item": "soulbrand:soul_cleanser",
+    "count": 1
+  }
+}

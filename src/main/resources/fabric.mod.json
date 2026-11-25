@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "soulbrand",
+  "version": "${version}",
+  "name": "附魂",
+  "description": "装备越杀越强：在附魂台上刻下附魂，之后每次击杀都涨魂值，等级越高攻击力、破甲与防护力越强。",
+  "authors": [
+    "DSH"
+  ],
+  "license": "All Rights Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.soulbrand.Soulbrand"
+    ]
+  },
+  "mixins": [
+    "soulbrand.mixins.json",
+    {
+      "config": "soulbrand.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  }
+}

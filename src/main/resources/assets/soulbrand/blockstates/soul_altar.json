@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,charged=false": { "model": "soulbrand:block/soul_altar" },
+    "facing=east,charged=false":  { "model": "soulbrand:block/soul_altar", "y": 90 },
+    "facing=south,charged=false": { "model": "soulbrand:block/soul_altar", "y": 180 },
+    "facing=west,charged=false":  { "model": "soulbrand:block/soul_altar", "y": 270 },
+    "facing=north,charged=true":  { "model": "soulbrand:block/soul_altar_charged" },
+    "facing=east,charged=true":   { "model": "soulbrand:block/soul_altar_charged", "y": 90 },
+    "facing=south,charged=true":  { "model": "soulbrand:block/soul_altar_charged", "y": 180 },
+    "facing=west,charged=true":   { "model": "soulbrand:block/soul_altar_charged", "y": 270 }
+  }
+}

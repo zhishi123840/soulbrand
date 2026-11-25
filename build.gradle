@@ -1,0 +1,68 @@
+plugins {
+    // loom 1.9.x 要求 Gradle >= 8.11；本工程 wrapper 是 8.10，故用 1.8.x。
+    id 'fabric-loom' version '1.8.13'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven { url = 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.aliyun.com/repository/public/' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+// 让 runClient 把 mixin 的注入过程打进日志。
+//
+// 这些 -D 必须传给「游戏进程」，不是 Gradle 进程 —— 所以放在 loom 的 run 配置里，
+// 而不是 org.gradle.jvmargs（那个只作用于 Gradle 自身，游戏进程读不到）。
+loom {
+    runs {
+        client {
+            vmArg "-Dmixin.debug.verbose=true"
+            vmArg "-Dmixin.debug.export=true"
+            vmArg "-Dmixin.checks.interfaces=true"
+            // 让本模组的 logger 也开到 debug，方便看 SoulConfig 之类的自检输出
+            property "mixin.debug.verbose", "true"
+        }
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    // 与 Forge 版同一个坑：Gradle 的 expand 默认吃平台编码（zh-CN Windows 上是 GBK），
+    // fabric.mod.json 里的中文会被按 GBK 解码再写回。双向锁死 UTF-8。
+    filteringCharset = 'UTF-8'
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = 17
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
